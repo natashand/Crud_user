@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Users;
-use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
@@ -14,9 +13,8 @@ class UserController extends Controller
     {
         $users = Users::all();
 
-        return response()->json(['users' => $users]);
-  }
-
+        return view('index', ['users' => $users]);
+    }
 
     public function create()
     {
@@ -43,8 +41,7 @@ class UserController extends Controller
     {
         $user = Users::findOrFail($id);
 
-        return \response()->json(['user' => $user]);
-//        return view('edit', ['user' => $user]);
+        return view('edit', ['user' => $user]);
     }
 
     public function update($id, Request $request)
@@ -62,7 +59,8 @@ class UserController extends Controller
         return redirect()->route('index');
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         Users::find($id)->delete();
         return redirect()->route('index');
     }
