@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use App\Users;
 use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
@@ -40,7 +38,6 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = Users::findOrFail($id);
-
         return view('edit', ['user' => $user]);
     }
 

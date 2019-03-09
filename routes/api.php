@@ -17,9 +17,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//Route::get('/', ['as' => 'index', 'uses' => 'UserController@index']);
-//Route::get('user/create', ['as' => 'create', 'uses' => 'UserController@create']);
-//Route::post('user/create', ['as' => 'add', 'uses' => 'UserController@createRequest']);
-//Route::get('user/{id}/edit', ['as' => 'edit', 'uses' => 'UserController@edit']);
-//Route::post('user/{id}/edit', ['as' => 'update', 'uses' => 'UserController@update']);
-//Route::get('user/{id}/delete', ['as' => 'delete', 'uses' => 'UserController@delete']);
+Route::get('/user', 'UserJsonController@index');
+Route::post('/user/create', 'UserJsonController@store');
+Route::put('/user/update/{id}', 'UserJsonController@update');
+Route::delete('/user/destroy/{id}', 'UserJsonController@destroy');
+

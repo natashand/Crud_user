@@ -2,8 +2,13 @@
 
 namespace App\Console;
 
+use App\Console\Commands\ParserCommand;
+use App\Console\Commands\UserDelCommand;
+use App\Console\Commands\UserPostCommand;
+use App\Console\Commands\UserPutCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Console\Commands\UserGetCommand;
 
 class Kernel extends ConsoleKernel
 {
@@ -13,7 +18,11 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        UserGetCommand::class,
+        UserDelCommand::class,
+        UserPostCommand::class,
+        UserPutCommand::class,
+        ParserCommand::class
     ];
 
     /**
