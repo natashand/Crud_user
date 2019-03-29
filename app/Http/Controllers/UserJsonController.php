@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Users;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Http\Controllers\Requests\UserRequest;
-
 
 class UserJsonController extends Controller
 {

@@ -2,7 +2,9 @@
 
 namespace App\Console;
 
+use App\Console\Commands\ColorParseCommand;
 use App\Console\Commands\ParserCommand;
+use App\Console\Commands\ParseTitle;
 use App\Console\Commands\UserDelCommand;
 use App\Console\Commands\UserPostCommand;
 use App\Console\Commands\UserPutCommand;
@@ -22,7 +24,9 @@ class Kernel extends ConsoleKernel
         UserDelCommand::class,
         UserPostCommand::class,
         UserPutCommand::class,
-        ParserCommand::class
+        ParserCommand::class,
+        ColorParseCommand::class,
+        ParseTitle::class,
     ];
 
     /**

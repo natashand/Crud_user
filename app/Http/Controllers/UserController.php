@@ -24,11 +24,8 @@ class UserController extends Controller
         if ($request->isMethod('post')) {
             $users = new Users();
             $users->name = $request->input('name');
-            $users->last_name = $request->input('last_name');
             $users->password = $request->input('password');
             $users->email = $request->input('email');
-            $users->phone = $request->input('phone');
-            $users->address = $request->input('address');
             $users->save();
         }
         return redirect()->route('index');
@@ -46,11 +43,8 @@ class UserController extends Controller
         if ($request->isMethod('post')) {
             $user = Users::find($id);
             $user->name = $request->input('name');
-            $user->last_name = $request->input('last_name');
             $user->password = $request->input('password');
             $user->email = $request->input('email');
-            $user->phone = $request->input('phone');
-            $user->address = $request->input('address');
             $user->save();
         }
         return redirect()->route('index');

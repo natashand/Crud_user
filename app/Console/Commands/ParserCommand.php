@@ -2,9 +2,11 @@
 
 namespace App\Console\Commands;
 
+use App\Parse;
 use DOMDocument;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
+use Symfony\Component\DomCrawler\Crawler;
 
 class ParserCommand extends Command
 {
@@ -42,17 +44,28 @@ class ParserCommand extends Command
         $client = new Client();
         $res = $client->get('https://natatnik.by/events/');
         $content = $res->getBody()->getContents();
-        $this->info('Content: '.$content);
+        $crawler = new Crawler($content);
+        $events = $crawler->filterXPath('//div[@class="tribe-events-photo-event-wrap"]')->each(function ($element) {
+            $event = new Parse();
+            $event->title = $element->filterXPath('//a[@class="tribe-event-url"]')->attr('title');
+            $event->image = $element->filterXPath('//img[@class="attachment-medium size-medium wp-post-image"]')->attr('src');
+            $event->date_start = $element->filterXPath('//span[@class="tribe-event-date-start"]')->html();
+            $event->date_end = $this->issetPath($element->filterXPath('//span[@class="tribe-event-date-end"]'));
+            $event->cost = $this->issetPath($element->filterXPath('//span[@class="tribe-events-event-cost"]'));
+            $event->save();
+            return $event;
+        });
+        dd($events);
 
-        $doc = new DOMDocument();
-        $doc->loadHTML($content, \LIBXML_NOERROR | \LIBXML_NOWARNING | \LIBXML_NOEMPTYTAG);
-        $xpath = new \DOMXPath($doc);
+        return $events;
+    }
 
-        $elements = $xpath->query('//div[@class="tribe-clearfix"]/div[@class="type-tribe_events"]div[@class="tribe-events-photo-event-wrap"]/div[@class="tribe-clearfix"]');
-        foreach ($elements as $node) {
-            $url = $node->find('h2[@class="tribe-events-list-event-title"]/a')->getAttribute('title');
-            $this ->info("Content: ". $url);
+    private function issetPath($e)
+    {
+        if (count($e) > 0) {
+            return $e->html();
+        } else {
+            return 'Not found';
         }
-
     }
 }

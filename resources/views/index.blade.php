@@ -49,8 +49,8 @@
                                 <td>{{$user->phone}}</td>
                                 <td>{{$user->address}}</td>
                                 <td>
-                                    <a type="button" class="btn btn-info small" href="user/{{$user->id}}/edit">Edit</a>
-                                    <a type="button" class="btn btn-danger small" href="user/{{$user->id}}/delete">Delete</a>
+                                    <a type="button" class="btn btn-info small" href="/user/{{$user->id}}/edit">Edit</a>
+                                    <a type="button" class="btn btn-danger small" href="/user/{{$user->id}}/delete">Delete</a>
                                 </td>
                             </tr>
                                 @endforeach
